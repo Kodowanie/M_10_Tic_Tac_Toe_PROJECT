@@ -1,0 +1,52 @@
+Plan to build the project:
+//1. create game board
+//  -> create a board app
+//  -> divide the board into sections
+//  -> create interface for player??? with score and number of games???
+//2. create game logic
+//  -> created short instruction for player
+//  -> who move first player or cpu (mini-game maybe???)
+//  -> possible/legal moves
+//  -> once a field on the board was use it can't be override one
+//  -> create win, lose and tie messages
+//3. define win conditions
+//  -> what are the move that leads to win
+//  -> print message of game status (win, lost, tie)
+//4. add some elements of machine learning??? or random cpu to play vs???
+
+Obstacles:
+1. never heard of GUI, first project that use GUI
+2. first "big" project
+3. had to learn from beginning how to use GUI all different command and what they do
+4. had to learn how GUI behave
+- what is ActionListener and what is its purpose
+- different object from javax.swing like (JFrame, JPanel, JLabel, JPanel, JButton)
+- how to create window app, banners, buttons etc...
+5. visualise and prepare game logic
+6. what are the win, lose and tie conditions and how to implement the via GUI
+7. prepare method dependencies and divide project in subclass instead of having everything in one class
+8. how you can have methods from different class using one another
+- initially had a problem that the methods return null
+9. how to implement some sort of mini game (here RPS) before we can play the actual Tic-Tac-Toe
+- to have 3 buttons (for rock-paper-scissors) instead of 9 (for tic-tac-toe)
+- after RPS game end how to delete the buttons create 9 new one for tic-tac-tie game
+- how to deal with the problem of possible tie result of RPS and how to repeat the game until one side win
+10. how to have smooth transition between the mini game and actual game
+- initially since there was 1 JButton 1 mouse click was running the RPS game and making the first move
+on the board array [1,2 or 3]
+11. how to introduce win, lose and tie condition so the game don't end
+- the tie condition was especially challenging
+12. have visible feedback about the game status
+- like "Tic-Tac-Toe", "R-P-S: winner will start", "CPU turn", "Draw" or "Player start"
+- goal was so the player is inform what is going on
+13. how to create random cpu player
+- the issue was that cpu was sometime thought the usage of Random number was overwriting a JButtons that
+should been unusable (since its was no longer empty)
+
+Resolution:
+1. google search different leads (searching with an idea in my but not knowing the specific language to use)
+2. checking different stackoverflow posts for information and tips
+3. looking for similar project to find some ideas on how to create such a project
+4. watching youtube java related to GUI content
+5. reading java documentation to the beast of abilities
+6. trial and error based approach

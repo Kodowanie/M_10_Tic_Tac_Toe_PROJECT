@@ -1,0 +1,77 @@
+Plan for the project:
+1. rewrite the win, lose, draw condition
+- cod is long and scalling the application to a board of 10x10 would require a lot of code
+2. rewrite class CheckWinConditions() compatible with project scaling
+- method checkWin() to (checkWin3X3 and checkWin10X10)
+- method xWins() and oWins to (checkWinner and checkTie)
+3. introduce 2 game modes
+- classic board 3x3 (3 in a row to win)
+- large board 10x10 (5 in a row to win)
+4. create at the beginning of the application before RPS choice to select game mode
+5. fix issue with non automatic CPU random move
+6. add colors when you win to highlight the combination
+7. simplify the buttonsGame10x10 instead of scanning the whole table search win condition
+- check the "button" that is click on though public void actionPerformed(ActionEvent e)
+and instead of scanning every time the whole array[r][c] to check win conditions
+only verify if there are win conditions around the "button"
+
+Obstacles:
+1. win condition with array[]??? is there a need to introduce array[][]???
+-- for game 3x3 - chain of 3 to win
+- how to create a shorter code???
+- horizontal win = n+(n+1)+(n+2) - where "n" is the index array[n]
+- vertical win = n+(n+3)+(n+6) - where "n" is the index array[n]
+- diagonal -> "\" win = n+(n+4)+(n+8) - where "n" is the index array[n]
+- diagonal -> "/" win = (n+2)+(n+4)+(n+6) - where "n" is the index array[n]
+-> this line prove to be the most challenging because index (n) or (n+1) give default win result
+need to find a work around
+- create draw condition
+-- for game 10x10 - chain of 5 to win
+- how to create a shorter code???
+- horizontal win = n+(n+1)+(n+2)+(n+3)+(n+4) - where "n" is the index array[n]
+- vertical win = n+(n+10)+(n+20)+(n+30)+(n+40) - where "n" is the index array[n]
+- diagonal -> "\" win = n+(n+11)+(n+22)+(n+33)+(n+44) - where "n" is the index array[n]
+- diagonal -> "/" win = (n+4)+(n+13)+(n+22)+(n+31)+(n+40) - where "n" is the index array[n]
+- create draw condition
+2. change win method due to limitation from array[] to array[][]
+- array [] can produce unexpected win condition on bigger board
+- with array [][] can create condition that require for symbol "X" and "O" to be on the same line
+- win array [r][c] -> "r" for row and "c" for column
+- horizontal win =
+array[r][c] == array[r][c+1] == array[r][c+2] == array[r][c+3] == array[r][c+4]
+- vertical win =
+array[r][c] == array[r+1][c] == array[r+2][c] == array[r+3][c] == array[r+4][c]
+- diagonal -> "\" win =
+array[r][c] == array[r+1][c+1] == array[r+2][c+2] == array[r+3][c+3] == array[r+4][c+4]
+- diagonal -> "/" win =
+array[r][c+4] == array[r+1][c+3] == array[r+2][c+2] == array[r+3][c+1] == array[r+4][c]
+3. Error with new method checkWin3X3
+- ArrayIndexOutOfBoundsException
+- BasicButtonListener
+4. initial search for win algorytm checkWinForBoard3x3 and checkWinForBoard10x10 dont work
+- if win condition is a horizontal of 5 in the last row with array[0][0] and array[0][9] being field
+- for (int r = 0 ; r < 10 ; r++) the "r" wont increment
+- need to investigate why int "r" dont increment (internet, mentors) in specific cases
+-- ex. of not working code horizontal win search
+for (int r = 0 ; r < 10 ; r++){ // check row
+    for (int c = 0 ; c < 10 ; c++){ // check column
+    if (board.buttonsGame10x10[r][c].getText() == "") continue;
+        //horizontal win
+        if ((board.buttonsGame10x10[r][c].getText() == board.buttonsGame10x10[r][c+1].getText() &&
+                board.buttonsGame10x10[r][c+1].getText() == board.buttonsGame10x10[r][c+2].getText() &&
+                board.buttonsGame10x10[r][c+2].getText() == board.buttonsGame10x10[r][c+3].getText() &&
+                board.buttonsGame10x10[r][c+3].getText() == board.buttonsGame10x10[r][c+4].getText()) &&
+            (!board.buttonsGame10x10[r][c].isEnabled()  &&
+                !board.buttonsGame10x10[r][c+1].isEnabled()  &&
+                !board.buttonsGame10x10[r][c+2].isEnabled()  &&
+                !board.buttonsGame10x10[r][c+3].isEnabled()  &&
+                !board.buttonsGame10x10[r][c+4].isEnabled())){
+            checkWinnerPrintResult(board);
+            board.gameOver = true;
+            return;
+        }
+- this was due to ArrayIndexOutOfBoundsException, since at some point the array was out of bounds the
+for (int c = 0 ; c < 10 ; c++) did finish without continuing the for (int r = 0 ; r < 10 ; r++)
+5. check why diagonal -> "/" win = array[r][c+4] == array[r+1][c+3] == array[r+2][c+2] == array[r+3][c+1] == array[r+4][c] is not working
+- diagonal -> "/" break the for loop
+- how to fix it?
